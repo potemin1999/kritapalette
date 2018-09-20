@@ -25,6 +25,7 @@ public class KritaClient {
         this.ip = ip;
         this.port = port;
         awaitConnect = true;
+        System.out.println("required connect to "+ip+":"+port);
         synchronized (clientThread) {
             clientThread.notify();
         }
@@ -51,8 +52,10 @@ public class KritaClient {
                 while (!awaitConnect) {
                     clientThread.wait();
                 }
+                System.out.println("connecting");
                 clientSocket = new Socket();
                 clientSocket.connect(new InetSocketAddress(ip,port));
+                System.out.println("connected");
                 OutputStream os = clientSocket.getOutputStream();
                 while (!awaitDisconnect) {
                     clientThread.wait();
@@ -63,7 +66,9 @@ public class KritaClient {
                 }
                 clientSocket.close();
             }
-        }catch(Throwable t){}
+        }catch(Throwable t){
+            t.printStackTrace();
+        }
     }
 
 }

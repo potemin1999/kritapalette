@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
@@ -63,10 +64,14 @@ public class SVSlidersView extends LinearLayout {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) { }
         });
-        addView(mSaturationSlider,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
-        addView(mValueSlider,LayoutParams.MATCH_PARENT,LayoutParams.WRAP_CONTENT);
+        addView(mSaturationSlider,LayoutParams.MATCH_PARENT,dpToPx(50));
+        addView(mValueSlider,LayoutParams.MATCH_PARENT,dpToPx(50));
     }
 
+    private int dpToPx(int dp) {
+        DisplayMetrics displayMetrics = getContext().getResources().getDisplayMetrics();
+        return Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+    }
 
     public void setColorRGB(int color){
         Color.colorToHSV(color,colorHSV);

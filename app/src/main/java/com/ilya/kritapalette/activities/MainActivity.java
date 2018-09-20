@@ -99,6 +99,10 @@ public class MainActivity extends Activity {
         ipHint.setText("IP:");
         TextView portHint = new TextView(this);
         portHint.setText("Port:");
+        if (storage.hasIp()){
+            ipText.setText(storage.getIp());
+            portText.setText(storage.getPort()+"");
+        }
         LinearLayout dialogLayout = new LinearLayout(this);
         dialogLayout.setOrientation(LinearLayout.VERTICAL);
         dialogLayout.addView(ipHint,-1,-2);
